@@ -35,6 +35,24 @@ public class DBHelper extends SQLiteOpenHelper {
                 "    Date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 "    FOREIGN KEY(user_id) REFERENCES usuarios(user_id)\n" +
                 ");");
+
+        db.execSQL("CREATE TRIGGER AddAmountToUserBalance\n" +
+                "AFTER UPDATE OF Saldo ON usuarios\n" +
+                "FOR EACH ROW\n" +
+                "BEGIN\n" +
+                "    INSERT INTO transactions (user_id, Type, Amount, Date)\n" +
+                "    VALUES (NEW.user_id, 'Depósito', NEW.Saldo, datetime('now', 'localtime'));\n" +
+                "END;\n");
+
+        db.execSQL("CREATE TRIGGER WithdrawAmountFromUserBalance\n" +
+                "AFTER UPDATE OF Saldo ON usuarios\n" +
+                "FOR EACH ROW\n" +
+                "BEGIN\n" +
+                "    INSERT INTO transactions (user_id, Type, Amount, Date)\n" +
+                "    VALUES (NEW.user_id, 'Retiro', NEW.Saldo, datetime('now', 'localtime'));\n" +
+                "END;\n");
+
+
     }
 
     @Override
@@ -76,10 +94,12 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst(); // Mover el cursor al primer registro
             int nameIndex = cursor.getColumnIndex("Name"); // Obtener el índice de la columna "Name"
-            if (nameIndex!= -1) { // Verificar que el índice no sea -1
+            int idIndex = cursor.getColumnIndex("user_id");
+            if (nameIndex!= -1 && idIndex!= -1) { // Verificar que el índice no sea -1
                 String name = cursor.getString(nameIndex); // Obtener el nombre del usuario
+                int userId = cursor.getInt(idIndex);//Obtener el id del usuario
                 cursor.close(); // Cerrar el cursor aquí
-                return name; // Devolver el nombre del usuario
+                return name + "," + userId; // Devolver el nombre del usuario
             } else {
                 // Manejar el caso en que la columna "Name" no existe
                 return null;
@@ -89,6 +109,20 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void addAmountToUserBalance(int userId, double amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Saldo", amount); // Asume que 'Saldo' es el nombre de la columna para el saldo
+        db.update("usuarios", values, "user_id=?", new String[]{String.valueOf(userId)});
+        db.close();
+    }
+    public void withdrawAmountFromUserBalance(int userId, double amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("Saldo", amount); // Asume que 'Saldo' es el nombre de la columna para el saldo
+        db.update("usuarios", values, "user_id=?", new String[]{String.valueOf(userId)});
+        db.close();
+    }
 
 
 

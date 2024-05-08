@@ -46,7 +46,7 @@
 
         />
     <Spinner
-        android:id="@+id/spinner_transaction_type"
+        android:id="@+id/comboTransacciones"
         android:layout_width="match_parent"
         android:layout_margin="15dp"
         android:layout_height="40dp"
@@ -54,6 +54,28 @@
         android:entries="@array/combo_type"
         android:prompt="@string/transaction_type_prompt"
         android:background="#dbdbdb"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" ** Id Usuario **"
+        android:textStyle="italic"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+
+
+        />
+    <EditText
+        android:id="@+id/cajaId"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:hint="Ingrese su Id"
+        android:gravity="center"
+        android:background="#dbdb"
+        android:inputType="number"
+
         />
 
     <TextView
@@ -65,6 +87,7 @@
         android:textSize="30dp"
         />
     <EditText
+        android:id="@+id/cajaMonto"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="15dp"
@@ -74,4 +97,71 @@
         android:inputType="numberDecimal"
 
         />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" ** Buscar por Fecha **"
+        android:textStyle="italic"
+        android:textSize="28dp"
+        android:textAlignment="center"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/cajaFecha"
+            android:layout_marginTop="10dp"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:hint="Ingrese la fecha"
+            android:background="#dbdbdb"
+            android:gravity="center"
+            android:inputType="date"
+
+            />
+        <Button
+            android:id="@+id/btnBuscarFecha"
+            android:layout_marginTop="10dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Buscar"
+            android:layout_marginLeft="10dp"
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/btnHistorial"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="25dp"
+            android:text="Ver Historial"
+            />
+        <Button
+            android:id="@+id/btnAceptar"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Aceptar"
+            />
+
+
+
+
+
+    </LinearLayout>
 </LinearLayout>

@@ -39,10 +39,15 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Por favor,Ingrese los campos", Toast.LENGTH_SHORT).show();
                 } else {
                     String userName = db.checkusernamepassword(user, pass);
+
                     if (userName!= null) {
+                        String[] userParts = userName.split(",");
+                        String userNamePart = userParts[0];
+                        int userId = Integer.parseInt(userParts[1]);
                         Toast.makeText(LoginActivity.this, "Inicio Exitoso!!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        intent.putExtra("username", userName); // Pasar el nombre del usuario a HomeActivity
+                        intent.putExtra("username", userNamePart); // Pasar el nombre del usuario a HomeActivity
+                        intent.putExtra("userId", userId);
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "Credenciades Invalidas!!", Toast.LENGTH_SHORT).show();
