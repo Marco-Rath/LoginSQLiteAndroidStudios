@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login"
+    android:gravity="center"
+    tools:context=".LoginActivity"
+
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/custom_edittext"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:backgroundTint="#00000000"
+
+        >
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="24dp"
+            android:background="@drawable/custom_edittext"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inicio de Sesion"
+                android:textStyle="italic"
+                android:textSize="34dp"
+                android:textAlignment="center"
+                android:textColor="@color/bluedark"
+                android:shadowColor="@color/bluedark"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                />
+
+
+            <EditText
+                android:id="@+id/cajaUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/baseline_person_outline_24"
+                android:drawablePadding="8dp"
+                android:hint="Usuario"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/yellowlight"
+                android:textColorHint="@color/yellowlight"
+                android:shadowColor="@color/bluedark"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="4"
+
+                />
+            <EditText
+                android:id="@+id/cajaContraseña"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/baseline_lock_open_24"
+                android:drawablePadding="8dp"
+                android:hint="Contraseña"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textColor="@color/yellowlight"
+                android:textColorHint="@color/yellowlight"
+                android:shadowColor="@color/bluedark"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="4"
+                android:layout_below="@+id/cajaUsuario"
+
+                />
+
+            <Button
+                android:id="@+id/btnIniciar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Iniciar Sesion"
+                android:backgroundTint="#4fa1a1"
+                android:textSize="20dp"
+                app:cornerRadius="20dp"
+                android:layout_below="@+id/cajaContraseña"
+                />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/registrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Reguistrar Ahora?"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:textColor="#b4dada"
+        android:layout_marginTop="20dp"
+        android:onClick="evento"
+        />
+
+
+
+
+</LinearLayout>

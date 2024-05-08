@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transaction_type_prompt">Tipo de transacción</string>
+
+    <string-array name="combo_type">
+        <item>Compra</item>
+        <item>Venta</item>
+        <item>Transferencia</item>
+    </string-array>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" ** Bienvenido * *"
+        android:textStyle="italic"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+
+
+        />
+
+    <TextView
+        android:id="@+id/etiNombre"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#dbdbdb"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:textColor="#10455b"
+
+
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" ** Tipo de Transaccion * *"
+        android:textStyle="italic"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+
+
+        />
+    <Spinner
+        android:id="@+id/spinner_transaction_type"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/combo_type"
+        android:prompt="@string/transaction_type_prompt"
+        android:background="#dbdbdb"
+        />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text=" ** Monto **"
+        android:textSize="30dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="15dp"
+        android:hint="Ingrese el monto"
+        android:gravity="center"
+        android:background="#dbdb"
+        android:inputType="numberDecimal"
+
+        />
+</LinearLayout>
