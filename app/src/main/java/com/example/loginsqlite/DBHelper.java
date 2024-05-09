@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public String checkusernamepassword(String Username, String Password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM usuarios WHERE Username=? AND Password=?", new String[]{Username, Password});
+        Cursor cursor = db.rawQuery("SELECT * FROM usuarios WHERE (Username=? OR Email=?) AND Password=?", new String[]{Username, Username, Password});
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst(); // Mover el cursor al primer registro
@@ -112,18 +112,33 @@ public class DBHelper extends SQLiteOpenHelper {
     public void addAmountToUserBalance(int userId, double amount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("Saldo", amount); // Asume que 'Saldo' es el nombre de la columna para el saldo
+        values.put("Saldo", amount);
         db.update("usuarios", values, "user_id=?", new String[]{String.valueOf(userId)});
         db.close();
     }
     public void withdrawAmountFromUserBalance(int userId, double amount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("Saldo", amount); // Asume que 'Saldo' es el nombre de la columna para el saldo
+        values.put("Saldo", amount);
         db.update("usuarios", values, "user_id=?", new String[]{String.valueOf(userId)});
         db.close();
     }
 
+    /*public Cursor getAllTransactions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM transactions", null);
+        return cursor;
+    }
+    public String getUserNameById(String userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT Name FROM usuarios WHERE user_id=?", new String[]{userId});
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("Name"));
+        }
+        return null;
+    }
+
+     */
 
 
 

@@ -1,6 +1,8 @@
 package com.example.loginsqlite;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -68,15 +71,67 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
+    btnAceptar.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String type = comboTransacciones.getSelectedItem().toString();
+            double amount = Double.parseDouble(cajaMonto.getText().toString());
+            String message = updateBalance(type, amount);
+            Toast.makeText(HomeActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    });
+       /* btnHistorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper dbHelper = new DBHelper(HomeActivity.this);
+                Cursor cursor = dbHelper.getAllTransactions();
+                StringBuilder transactionHistory = new StringBuilder();
+                while (cursor.moveToNext()) {
+                    String type = cursor.getString(cursor.getColumnIndex("Type"));
+                    double amount = cursor.getDouble(cursor.getColumnIndex("Amount"));
+                    String date = cursor.getString(cursor.getColumnIndex("Date"));
+                    String userId = cursor.getString(cursor.getColumnIndex("user_id"));
+                    // Aquí puedes obtener el nombre del usuario usando el userId
+                    String userName = dbHelper.getUserNameById(userId);
+                    transactionHistory.append("Tipo: ").append(type).append(", Monto: ").append(amount).append(", Fecha: ").append(date).append(", Usuario: ").append(userName).append("\n");
+            }
+                cursor.close();
+                // Crear y mostrar el AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setTitle("Historial de Transacciones");
+                builder.setMessage(transactionHistory.toString());
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Código para ejecutar cuando se presiona el botón OK
+                    }
+                });
+                builder.show();
+        });
+*/
 
 
     }
+
+
+
+    public String updateBalance(String type, double amount) {
+        DBHelper dbHelper = new DBHelper(this);
+        int userId = Integer.parseInt(cajaId.getText().toString());
+        String message = "";
+        try {
+            if (type.equals("Depósito")) {
+                dbHelper.addAmountToUserBalance(userId, amount);
+                message = "Depósito Exitoso";
+            } else if (type.equals("Retiro")) {
+                dbHelper.withdrawAmountFromUserBalance(userId, amount);
+                message = "Retiro Exitoso";
+            }
+        } catch (Exception e) {
+            // Manejar la excepción, por ejemplo, mostrando un mensaje de error
+            message = "Error al realizar la operación";
+        }
+        return message;
+    }
+
 }
