@@ -113,27 +113,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+
         >
         <EditText
             android:id="@+id/cajaFecha"
             android:layout_marginTop="10dp"
             android:layout_width="230dp"
             android:layout_height="50dp"
-            android:hint="Ingrese la fecha"
+            android:hint="Fecha Seleccionada"
             android:background="#dbdbdb"
             android:gravity="center"
-            android:inputType="numberDecimal"
+            android:inputType="date"
 
             />
         <Button
             android:id="@+id/btnBuscarFecha"
             android:layout_marginTop="10dp"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:text="Buscar"
+            android:background="@drawable/baseline_calendar_month_24"
+            android:layout_marginLeft="10dp"
+
+            />
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Buscar"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="#ebb075"
             />
+
 
 
     </LinearLayout>
@@ -152,12 +164,14 @@
             android:layout_height="50dp"
             android:layout_marginRight="25dp"
             android:text="Ver Historial"
+            android:backgroundTint="#ebb075"
             />
         <Button
             android:id="@+id/btnAceptar"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="Aceptar"
+            android:backgroundTint="#ebb075"
             />
 
 
@@ -165,4 +179,13 @@
 
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btnSaldo"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Ver Saldo"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#0b5038"
+        />
 </LinearLayout>
