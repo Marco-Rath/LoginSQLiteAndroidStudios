@@ -89,11 +89,17 @@
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Verificar que todos los campos necesarios estén rellenos
+                if (comboTransacciones.getSelectedItem() == null || cajaMonto.getText().toString().isEmpty() || cajaId.getText().toString().isEmpty() || cajaIdTransferencia.getText().toString().isEmpty()) {
+                    Toast.makeText(HomeActivity.this, "Por favor, Ingrese todos los campos ", Toast.LENGTH_SHORT).show();
+                    return; // Salir del método si alguno de los campos está vacío
+                }
                 DBHelper dbHelper = new DBHelper(HomeActivity.this);
                 String type = comboTransacciones.getSelectedItem().toString();
                 double amount = Double.parseDouble(cajaMonto.getText().toString());
                 int tuUserId = Integer.parseInt(cajaId.getText().toString());
                 int otroUserId = Integer.parseInt(cajaIdTransferencia.getText().toString());
+             
 
                 if (type.equals("Transferencia")) {
                     String message = dbHelper.transferAmount(tuUserId, otroUserId, amount);

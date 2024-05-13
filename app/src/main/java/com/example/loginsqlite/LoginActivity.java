@@ -49,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("username", userNamePart); // Pasar el nombre del usuario a HomeActivity
                         intent.putExtra("userId", userId);
                         startActivity(intent);
+                        username.setText("");
+                        password.setText("");
                     } else {
                         Toast.makeText(LoginActivity.this, "Credenciades Invalidas!!", Toast.LENGTH_SHORT).show();
                     }
