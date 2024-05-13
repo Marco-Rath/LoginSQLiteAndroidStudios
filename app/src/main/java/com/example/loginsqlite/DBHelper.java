@@ -181,9 +181,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    public Cursor getAllTransactions() {
+    public Cursor getAllTransactionsForUser(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM transactions", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM transactions WHERE user_id=?", new String[]{String.valueOf(userId)});
         return cursor;
     }
     public String getUserNameById(String userId) {
@@ -254,6 +254,67 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return resultado.toString();
     }
+    public String transferAmount(int tuUserId, int otroUserId, double monto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String message = "Transferencia realizada con éxito.";
+        boolean transferExitosa = true; // Asumimos que la transferencia será exitosa hasta que se demuestre lo contrario
+
+        try {
+            // Iniciar una transacción
+            db.beginTransaction();
+
+            // Actualizar el saldo del usuario 'tuUserId' restando el monto
+            Cursor cursor = db.rawQuery("SELECT Saldo FROM usuarios WHERE user_id=?", new String[]{String.valueOf(tuUserId)});
+            if (cursor.moveToFirst()) {
+                double saldoActual = cursor.getDouble(0);
+                if (saldoActual < monto) {
+                    transferExitosa = false; // La transferencia no es exitosa si el saldo es insuficiente
+                    message = "Error: Saldo insuficiente.";
+                } else {
+                    ContentValues values1 = new ContentValues();
+                    values1.put("Saldo", saldoActual - monto);
+                    db.update("usuarios", values1, "user_id=?", new String[]{String.valueOf(tuUserId)});
+                }
+            }
+
+            // Actualizar el saldo del usuario 'otroUserId' sumando el monto
+            Cursor cursor2 = db.rawQuery("SELECT Saldo FROM usuarios WHERE user_id=?", new String[]{String.valueOf(otroUserId)});
+            if (cursor2.moveToFirst()) {
+                double saldoActual = cursor2.getDouble(0);
+                ContentValues values2 = new ContentValues();
+                values2.put("Saldo", saldoActual + monto);
+                db.update("usuarios", values2, "user_id=?", new String[]{String.valueOf(otroUserId)});
+            }
+
+            // Insertar la transacción en la tabla 'transactions'
+            ContentValues transactionValues = new ContentValues();
+            transactionValues.put("user_id", tuUserId);
+            transactionValues.put("Type", "Transferencia");
+            transactionValues.put("Amount", -monto); // El monto es negativo para indicar una salida
+            db.insert("transactions", null, transactionValues);
+
+            // Insertar la transacción para el otro usuario
+            ContentValues transactionValues2 = new ContentValues();
+            transactionValues2.put("user_id", otroUserId);
+            transactionValues2.put("Type", "Transferencia");
+            transactionValues2.put("Amount", monto); // El monto es positivo para indicar una entrada
+            db.insert("transactions", null, transactionValues2);
+
+            // Finalizar la transacción
+            if (transferExitosa) {
+                db.setTransactionSuccessful();
+            }
+        } catch (Exception e) {
+            // Manejar la excepción
+            e.printStackTrace();
+            message = "Error al realizar la transferencia.";
+        } finally {
+            // Finalizar la transacción, ya sea con éxito o con error
+            db.endTransaction();
+        }
+        return message;
+    }
+
 
 
 
